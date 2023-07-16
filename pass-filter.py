@@ -62,7 +62,7 @@ def xmlize_items(items, query):
     items_a = []
 
     for item in items:
-        list = string.rsplit(item, "/", 1)
+        list = str(item).rsplit("/", 1)
         name = list[-1]
         path = item if len(list) == 2 else ""
 
@@ -88,5 +88,5 @@ def xmlize_items(items, query):
 
 
 items = search_passwords(QUERY)
-print xmlize_items(items, QUERY)
+print(xmlize_items(items, QUERY))
 
