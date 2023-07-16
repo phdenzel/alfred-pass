@@ -1,20 +1,17 @@
-# An Alfred 2/3 Workflow for Pass
+# An Alfred 5 Workflow for Pass
 
-[Pacmax Page](https://pacmax.org/pac/cgenie-alfred-pass/)
+This is an Alfred 5 workflow for [Pass - the standard Unix password manager](https://www.passwordstore.org/) 
+(in order to use workflows with Alfred 5 you will have to purchase a user license).
+It's based on [passmenu](http://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu), which is available for Linux.
 
-[Alfred forum page](https://www.alfredforum.com/topic/8471-pass-the-standard-unix-password-manager/)
-
-This is an Alfred 2/3 workflow for [Pass - the standard Unix password manager](https://www.passwordstore.org/). It's based on [passmenu](http://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu), which is available for Linux.
 
 ## Setup
 
 To make this work you need:
-* [Pass](https://www.passwordstore.org/) (obviously) -- needs to be set up with password store in
-  `~/.password-store/`.
-* `gpg-agent` -- install with `brew`
-* `pinentry-mac` -- also install with `brew` (this is GUI frontend for `gpg-agent`).
-* (optionally) the `fuzzywuzzy` and (also optionally) `python-Levenshtein`
-  Python modules (install with `pip install --user fuzzywuzzy python-Levenshtein`)
+* [Pass](https://www.passwordstore.org/) (see homebrew)
+* `gpg-agent` (see homebrew)
+* `pinentry-mac` (see homebrew)
+* (optionally) `fuzzywuzzy` and `python-Levenshtein` python packages
 
 Next configure `gpg-agent` to use `pinentry-mac` and not the bundled one, editing `~/.gnupg/gpg-agent.conf`:
 
@@ -26,7 +23,6 @@ If you prefer to keep the terminal version of `pinentry` you can use the
 `pinentry.sh` wrapper from this repository as the `pinentry-program`. This will
 use the ncurses version when in console and the GUI version for Alfred etc.
 
-You can also take a look at [this blog post from @bshiller](https://brianschiller.com/blog/2016/08/31/gnu-pass-alfred).
 
 ### GPG tweaking
 
@@ -40,10 +36,20 @@ After 7200 seconds, GPG will forget your master password.
 
 ## Installation
 
-After your system is set up as described above, download the latest package from
-[Pacmax](https://pacmax.org/pac/cgenie-alfred-pass/). Locate the file in Finder, right-click
-on it and choose 'Open With -> Alfred'. You will be prompted to install the workflow, so go ahead.
-Next fire up the Alfred console (`Alt-Space` by default) and type one of the commands described below.
+Make sure the prerequisites have been properly installed before you continue, e.g.
+```bash
+brew install pass pass-otp pinentry-mac
+pip install fuzzywuzzy python-Levenshtein
+```
+
+Then, clone this repository and build the Alfred workflow
+``` bash
+git clone git@github.com:phdenzel/alfred-pass.git
+cd alfred-pass && make
+```
+Locate the file `pass.alfredworkflow` in Finder, right-click on it and choose 'Open With -> Alfred'.
+You will be prompted to install the workflow, so go ahead.
+
 
 ## Usage
 
@@ -76,11 +82,3 @@ Calls `pass generate` to add a new password with default length of 20 chars.
 ## `po <filter terms>`
 
 This will search through your OTP passwords (requires `pass-otp`) using the filter terms you provided.
-
-## Development
-
-To generate the `pass.alfredworkflow` file (which you can import to Alfred), just use
-
-```
-make
-```
